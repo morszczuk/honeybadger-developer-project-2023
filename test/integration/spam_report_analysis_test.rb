@@ -2,7 +2,7 @@ require "test_helper"
 
 class SpamReportAnalysisTest < ActionDispatch::IntegrationTest
   test "report analysis identifies spam report" do
-    post report_spam_analysis_path, params: spam_payload
+    post api_v1_report_spam_analysis_path, params: spam_payload
     assert_response :success
   end
 
