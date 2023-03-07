@@ -4,6 +4,7 @@ class SpamReportAnalysisTest < ActionDispatch::IntegrationTest
   test "report analysis identifies spam report" do
     post api_v1_report_spam_analysis_path, params: spam_payload
     assert_response :success
+    assert JSON.parse(response.body)['is_spam']
   end
 
   private
