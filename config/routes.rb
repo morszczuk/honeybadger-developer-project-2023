@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   namespace :slack do
     resource :authorization, only: [:show]
     resource :access_token, only: [:show]
+    resource :message, only: [:create]
   end
 end

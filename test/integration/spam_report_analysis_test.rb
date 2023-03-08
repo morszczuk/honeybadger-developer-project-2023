@@ -1,10 +1,21 @@
 require "test_helper"
+require "minitest/mock"
 
 class SpamReportAnalysisTest < ActionDispatch::IntegrationTest
   test "report analysis identifies spam report" do
     post api_v1_report_spam_analysis_path, params: { report: spam_payload }
     assert_response :success
     assert JSON.parse(response.body)['is_spam']
+  end
+
+  test "report analysis posts message about the spam report to Slack" do
+    slack_mock = Minitest::Mock.new
+    slack_mock.expect(:chat_postMessage, true, text: "Spam Report!\nPayload: #{spam_payload.to_json}", channel: "#general", as_user: true)
+
+    Slack::Web::Client.stub :new, slack_mock do
+      post api_v1_report_spam_analysis_path, params: { report: spam_payload }
+    end
+    assert_mock slack_mock
   end
 
   test "report analysis identifies valid report" do
@@ -19,7 +30,7 @@ class SpamReportAnalysisTest < ActionDispatch::IntegrationTest
     {
       "RecordType": "Bounce",
       "Type": "SpamNotification",
-      "TypeCode": 512,
+      "TypeCode": '512',
       "Name": "Spam notification",
       "Tag": "",
       "MessageStream": "outbound",
@@ -35,7 +46,7 @@ class SpamReportAnalysisTest < ActionDispatch::IntegrationTest
       "RecordType": "Bounce",
       "MessageStream": "outbound",
       "Type": "HardBounce",
-      "TypeCode": 1,
+      "TypeCode": '1',
       "Name": "Hard bounce",
       "Tag": "Test",
       "Description": "The server was unable to deliver your message (ex: unknown user, mailbox not found).",
