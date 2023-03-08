@@ -1,3 +1,5 @@
+# Wrapper around the report's payload.
+# Provides interface to interact with the payload data.
 class ReportPayload
   include ActiveModel::Validations
 
@@ -13,5 +15,13 @@ class ReportPayload
     return if payload.key? 'Type'
 
     errors.add(:payload, 'Payload has to contain key Type')
+  end
+
+  def type_code
+    payload['TypeCode'].to_s
+  end
+
+  def to_s
+    payload.to_json.to_s
   end
 end

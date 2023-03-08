@@ -76,8 +76,21 @@ GEM
       irb (>= 1.5.0)
       reline (>= 0.3.1)
     erubi (1.12.0)
+    faraday (2.7.4)
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-follow_redirects (0.3.0)
+      faraday (>= 1, < 3)
+    faraday-mashify (0.1.1)
+      faraday (~> 2.0)
+      hashie
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (3.0.2)
+    gli (2.21.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    hashie (5.0.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
@@ -96,6 +109,7 @@ GEM
     mini_mime (1.1.2)
     minitest (5.18.0)
     msgpack (1.6.1)
+    multipart-post (2.3.0)
     net-imap (0.3.4)
       date
       net-protocol
@@ -143,6 +157,14 @@ GEM
     rake (13.0.6)
     reline (0.3.2)
       io-console (~> 0.5)
+    ruby2_keywords (0.0.5)
+    slack-ruby-client (2.0.0)
+      faraday (>= 2.0)
+      faraday-mashify
+      faraday-multipart
+      gli
+      hashie
+      websocket-driver
     sqlite3 (1.6.1-aarch64-linux)
     thor (1.2.1)
     timeout (0.3.2)
@@ -159,8 +181,11 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  faraday
+  faraday-follow_redirects
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.2)
+  slack-ruby-client
   sqlite3 (~> 1.4)
   tzinfo-data
 
