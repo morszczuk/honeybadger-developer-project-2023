@@ -1,3 +1,5 @@
+# Wrapper around the slack web client.
+# Provides a simplified interface to interact with the slack integration.
 module Slack
   class Client
     DEFAULT_CHANNEL = '#general'

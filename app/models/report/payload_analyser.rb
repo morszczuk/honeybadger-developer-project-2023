@@ -1,3 +1,5 @@
+# Class responsible for performing a check on a report.
+# If check is positive, a set of actions will be performed.
 class Report
   class PayloadAnalyser
     SPAM_TYPE_CODE = '512'

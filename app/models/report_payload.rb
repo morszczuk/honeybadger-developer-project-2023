@@ -1,3 +1,5 @@
+# Wrapper around the report's payload.
+# Provides interface to interact with the payload data.
 class ReportPayload
   include ActiveModel::Validations
 
