@@ -14,4 +14,12 @@ class ReportPayload
 
     errors.add(:payload, 'Payload has to contain key Type')
   end
+
+  def type_code
+    payload['TypeCode'].to_s
+  end
+
+  def to_s
+    payload.to_json.to_s
+  end
 end
