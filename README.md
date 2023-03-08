@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Deployment
+### Slack authorization
+In your browser, go to
 
-Things you may want to cover:
+```
+/slack/authorization
+```
 
-* Ruby version
+Select Slack workspace and the channel you want to post report messages to.
 
-* System dependencies
+Then, the URL you will be redirected to, will include the `code` param. *(Note: the URL redirection will fail, because it would require knowing the host url before the deployment, to configure the Slack app).*
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Take the value of `code`, and send a request to:
+```
+GET /slack/access_token?code=<your_code>
+```
+Then, if the code was correct, you should receive access token in the response. Save it - it will be handy to send spam report requests!
