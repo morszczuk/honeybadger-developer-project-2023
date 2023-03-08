@@ -1,6 +1,23 @@
 # README
 
 ## Deployment
+### Dockerised development environment
+The easiest way to spin off the application in your local machine to test the functionalities is by using Dockerised application, using [rails/docked](https://github.com/rails/docked)
+
+Firstly, ensure you have [docker](https://www.docker.com/products/docker-desktop/) installed on your machine.
+
+Then, perform the following steps:
+```
+docker volume create ruby-bundle-cache
+alias docked='docker run --rm -it -v ${PWD}:/rails -v ruby-bundle-cache:/bundle -p 3000:3000 ghcr.io/rails/cli'
+
+docked bin/setup
+docked rails server
+```
+
+That's it! The application is now available at `localhost:3000`.
+
+If you want to deploy the application on some server, you can use the same docker image, but perform actions that set up the application on the desired server.
 ### Slack authorization
 
 #### Create Slack workspace
@@ -14,16 +31,16 @@ In your browser, go to:
 
 where `host` is the place where this rails application is deployed (e.g. in development that will be `localhost:3000`).
 
-Select Slack workspace and the channel (pick #general, for testing purposes) you want to post report messages to.
+In the Slack authorization view, select Slack workspace and the channel (pick #general, for testing purposes) you want to post report messages to.
 
 Then, the URL you will be redirected to, will include the `code` param. *(Note: the URL redirection will fail, because it would require knowing the host url before the deployment, to configure the Slack app).*
 
 #### Obtain an access token
 Take the value of `code`, and send a request to:
 ```
-GET /slack/access_token?code=<your_code>
+GET <host>/slack/access_token?code=<your_code>
 ```
-Then, if the code was correct, you the response should include access token. Save it - it will be handy to send spam report requests!
+Then, if the code was correct, the response should include the access token. Save it - it will be handy to send spam report requests!
 
 #### Add bot to your Slack channel
 The last step is to add the App to the channel you want to post to. For testing purposes, please choose #general.
