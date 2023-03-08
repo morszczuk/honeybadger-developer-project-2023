@@ -1,6 +1,10 @@
 # README
 
-## Deployment
+## Summary
+This is an implementation of Honeybadger's recruitment task, as defined in here: https://honeybadger.notion.site/honeybadger/Take-home-project-for-Software-Developer-position-2023-fee9be3cd8454e1fb61e53f0172ff2e8
+
+It provides a simple API endpoint, that analyses the provided JSON payload, and if it identifies a Spam Report, it sends a Slack message.
+## Installation
 ### Dockerised development environment
 The easiest way to spin off the application in your local machine to test the functionalities is by using Dockerised application, using [rails/docked](https://github.com/rails/docked)
 
