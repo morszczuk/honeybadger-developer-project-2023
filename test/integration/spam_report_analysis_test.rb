@@ -3,18 +3,15 @@ require "minitest/mock"
 
 class SpamReportAnalysisTest < ActionDispatch::IntegrationTest
   test "report analysis identifies spam report" do
-    post api_v1_report_spam_analysis_path, params: { report: spam_payload }
-    assert_response :success
-    assert JSON.parse(response.body)['is_spam']
-  end
-
-  test "report analysis posts message about the spam report to Slack" do
     slack_mock = Minitest::Mock.new
     slack_mock.expect(:chat_postMessage, true, text: "Spam Report!\nPayload: #{spam_payload.to_json}", channel: "#general", as_user: true)
 
     Slack::Web::Client.stub :new, slack_mock do
       post api_v1_report_spam_analysis_path, params: { report: spam_payload }
     end
+
+    assert_response :success
+    assert JSON.parse(response.body)['is_spam']
     assert_mock slack_mock
   end
 
