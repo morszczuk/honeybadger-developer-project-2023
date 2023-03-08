@@ -8,7 +8,7 @@ module Slack
 
     def self.authorization_url(redirect_uri:)
       uri = URI(BASE_URL + AUTHORIZATION_ENDPOINT)
-      uri.query = { client_id: client_id, scope: 'incoming-webhook', redirect_uri: app_host_url + redirect_uri }.to_query
+      uri.query = { client_id: client_id, scope: 'incoming-webhook channels:read chat:write', redirect_uri: app_host_url + redirect_uri }.to_query
       uri.to_s
     end
 
